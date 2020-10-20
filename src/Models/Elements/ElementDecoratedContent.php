@@ -33,7 +33,7 @@ class ElementDecoratedContent extends ElementContent
 
     private static $table_name = 'ElementDecoratedContent';
 
-    private static $icon = 'font-icon-block-content';
+    private static $icon = 'font-icon-block-banner';
 
     private static $title = 'Decorated content';
 
