@@ -4,6 +4,9 @@
 	    <% if $Title && $ShowTitle %>
             <h2 class="content-element__title">{$Title.XML}</h2>
         <% end_if %>
+	    <% if $Subtitle %>
+            <h3 class="content-element__subtitle">{$Subtitle.XML}</h3>
+        <% end_if %>
         <% if $CallToAction %>
 	          {$CallToAction.XML}
         <% end_if %>

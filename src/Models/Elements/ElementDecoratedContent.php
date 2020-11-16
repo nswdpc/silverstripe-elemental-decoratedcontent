@@ -40,6 +40,7 @@ class ElementDecoratedContent extends ElementContent
     private static $description = 'A content element with extra fields';
 
     private static $db = [
+        'Subtitle' => 'Varchar(255)',
         'CallToAction' => 'Varchar(32)',
         'PublicDate' => 'Datetime',
         'UseLastEditedDate' => 'Boolean'
@@ -133,6 +134,11 @@ class ElementDecoratedContent extends ElementContent
                  ->setSourceList( $this->getTaxonomyTerms() ),
 
                 $this->getLinkField(),
+
+                TextField::create(
+                    'Subtitle',
+                    _t(__CLASS__ . '.SUBTITLE', 'Subtitle')
+                ),
 
                 TextField::create(
                     'CallToAction',

@@ -18,6 +18,9 @@
                 <h2 class="content-element__title">{$CallToAction.XML}</h2>
             <% end_if %>
         <% end_if %>
+	    <% if $Subtitle %>
+            <h3 class="content-element__subtitle">{$Subtitle.XML}</h3>
+        <% end_if %>
         <% if $HTML %>
             $HTML
         <% end_if %>
