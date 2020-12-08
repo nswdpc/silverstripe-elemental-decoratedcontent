@@ -11,6 +11,7 @@ use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -43,7 +44,8 @@ class ElementDecoratedContent extends ElementContent
         'Subtitle' => 'Varchar(255)',
         'CallToAction' => 'Varchar(32)',
         'PublicDate' => 'Datetime',
-        'UseLastEditedDate' => 'Boolean'
+        'UseLastEditedDate' => 'Boolean',
+        'ImageAlignment' => 'Varchar(32)',
     ];
 
     private static $defaults = [
@@ -112,6 +114,14 @@ class ElementDecoratedContent extends ElementContent
                 )->setFolderName('blocks/content/' . $this->owner->ID)
                 ->setAllowedMaxFileNumber(1)
                 ->setIsMultiUpload(false),
+                DropdownField::create(
+                    'ImageAlignment',
+                    _t(__CLASS__ . '.IMAGE_ALIGNMENT', 'Image alignment'),
+                    [
+                        'left' => 'Left',
+                        'right' => 'Right'
+                    ]
+                )->setEmptyString('Choose an option'),
                 CompositeField::create(
                     DatetimeField::create(
                         'PublicDate',

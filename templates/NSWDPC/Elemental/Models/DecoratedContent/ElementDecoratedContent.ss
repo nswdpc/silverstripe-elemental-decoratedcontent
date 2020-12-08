@@ -1,5 +1,5 @@
 <div class="{$ElementStyles}">
-    <% if $LinkTarget %><a href="{$LinkURL}" title="{$Title.XML}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>><% end_if %>
+    <% if $LinkTarget %><a href="{$LinkTarget.LinkURL}" title="{$Title.XML}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>><% end_if %>
     <% if $Tags %>
     <div class="tags">
         <% loop $Tags %>
