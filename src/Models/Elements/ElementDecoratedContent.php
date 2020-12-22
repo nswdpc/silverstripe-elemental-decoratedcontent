@@ -46,6 +46,7 @@ class ElementDecoratedContent extends ElementContent
         'PublicDate' => 'Datetime',
         'UseLastEditedDate' => 'Boolean',
         'ImageAlignment' => 'Varchar(32)',
+        'IconClass' => 'Varchar(64)'
     ];
 
     private static $defaults = [
@@ -153,7 +154,13 @@ class ElementDecoratedContent extends ElementContent
                 TextField::create(
                     'CallToAction',
                     _t(__CLASS__ . '.CALL_TO_ACTION', 'Call to action text')
+                ),
+
+                TextField::create(
+                    'IconClass',
+                    _t(__CLASS__ . '.ICON_CLASS', 'Alternative icon class')
                 )
+
             ]
         );
 
