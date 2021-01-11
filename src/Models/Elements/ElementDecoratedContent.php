@@ -13,6 +13,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\OptionsetField;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\TagField\Tagfield;
@@ -46,7 +47,9 @@ class ElementDecoratedContent extends ElementContent
         'PublicDate' => 'Datetime',
         'UseLastEditedDate' => 'Boolean',
         'ImageAlignment' => 'Varchar(32)',
-        'IconClass' => 'Varchar(64)'
+        'IconClass' => 'Varchar(64)',
+        'Video' => 'Varchar(255)',
+        'Provider' => 'Varchar'
     ];
 
     private static $defaults = [
@@ -123,6 +126,20 @@ class ElementDecoratedContent extends ElementContent
                         'right' => 'Right'
                     ]
                 )->setEmptyString('Choose an option'),
+                OptionsetField::create(
+                    'Provider',
+                    _t(__CLASS__ . '.PROVIDER', 'Video provider'),
+                    [
+                        'youtube' => 'YouTube',
+                        'vimeo' => 'Vimeo'
+                    ]
+                ),
+                TextField::create(
+                    'Video',
+                    _t(
+                        __CLASS__ . 'VideoID', 'Video ID'
+                    )
+                ),
                 CompositeField::create(
                     DatetimeField::create(
                         'PublicDate',
