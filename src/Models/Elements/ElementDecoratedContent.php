@@ -105,7 +105,7 @@ class ElementDecoratedContent extends ElementContent
         $fields = parent::getCmsFields();
         $fields->removeByName(['PublicDate','UseLastEditedDate','Tags','LinkTargetID']);
         $fields->addFieldsToTab(
-            'Root.Main',
+            'Root.Image',
             [
                 UploadField::create(
                     'Image',
@@ -122,10 +122,20 @@ class ElementDecoratedContent extends ElementContent
                     'ImageAlignment',
                     _t(__CLASS__ . '.IMAGE_ALIGNMENT', 'Image alignment'),
                     [
-                        'left' => 'Left',
-                        'right' => 'Right'
+                        'left' => _t(__CLASS__ . '.LEFT', 'Left'),
+                        'right' => _t(__CLASS__ . '.RIGHT', 'Right')
                     ]
-                )->setEmptyString('Choose an option'),
+                )->setEmptyString('Choose an option')
+                ->setDescription(
+                    _t(__CLASS__ . '.IMAGE_ALIGNMENT_DESCRIOTION', 'Use of this option is dependent on the theme')
+                )
+            ]
+        );
+
+        // Video fields
+        $fields->addFieldsToTab(
+            'Root.Video',
+            [
                 OptionsetField::create(
                     'Provider',
                     _t(__CLASS__ . '.PROVIDER', 'Video provider'),
@@ -139,7 +149,13 @@ class ElementDecoratedContent extends ElementContent
                     _t(
                         __CLASS__ . 'VideoID', 'Video ID'
                     )
-                ),
+                )
+            ]
+        );
+
+        $fields->addFieldsToTab(
+            'Root.Meta',
+            [
                 CompositeField::create(
                     DatetimeField::create(
                         'PublicDate',
@@ -161,30 +177,47 @@ class ElementDecoratedContent extends ElementContent
 	             ->setCanCreate(true)
                  ->setSourceList( $this->getTaxonomyTerms() ),
 
-                $this->getLinkField(),
-
-                TextField::create(
-                    'Subtitle',
-                    _t(__CLASS__ . '.SUBTITLE', 'Subtitle')
-                ),
-
-                TextField::create(
-                    'CallToAction',
-                    _t(__CLASS__ . '.CALL_TO_ACTION', 'Call to action text')
-                ),
-
                 TextField::create(
                     'IconClass',
-                    _t(__CLASS__ . '.ICON_CLASS', 'Alternative icon class')
+                    _t(__CLASS__ . '.ICON_CLASS', 'An icon class, reference or ligature')
+                )->setDescription(
+                    _t(__CLASS__ . '.ICON_CLASS_DESCRIPTION', 'Use of this option is dependent on the theme in use')
                 )
-
             ]
+        );
+
+        $fields->insertAfter(
+            'Title',
+            TextField::create(
+                'Subtitle',
+                _t(__CLASS__ . '.SUBTITLE', 'Subtitle')
+            )->setDescription(
+                _t(__CLASS__ . '.SUBTITLE_DESCRIPTION', 'An optional sub-title, such as a byline. The display of this field is dependent on the theme in use')
+            )
+        );
+
+        $fields->insertAfter(
+            'Subtitle',
+            TextField::create(
+                'CallToAction',
+                _t(__CLASS__ . '.CALL_TO_ACTION', 'Call to action text')
+            )->setDescription(
+                _t(__CLASS__ . '.CALL_TO_ACTION_DESCRIPTION', 'An optional call-to-action text to use within the element. The display of this field is dependent on the theme in use')
+            )
+        );
+
+        $fields->insertAfter(
+            'CallToAction',
+            $this->getLinkField()
         );
 
         return $fields;
     }
 
-    protected function getLinkField() {
+    /**
+     * Return the field used to handle linking
+     */
+    protected function getLinkField() : LinkField {
         $field = LinkField::create(
             'LinkTarget',
             _t(
@@ -192,6 +225,8 @@ class ElementDecoratedContent extends ElementContent
                 'Link'
             ),
             $this
+        )->setDescription(
+            _t(__CLASS__ . '.LINK_DESCRIPTION','Choose where this content item will link to')
         );
         return $field;
     }
