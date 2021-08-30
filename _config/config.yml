@@ -1,12 +1,3 @@
 ---
 Name: nswdpc-elemental-decoratedcontent
 ---
-
----
-Name: nswdpc-elemental-decoratedcontent-gridhelper
-Only:
-  moduleexists: 'nswdpc/silverstripe-grid-helpers'
----
-NSWDPC\Elemental\Models\DecoratedContent\ElementDecoratedContent:
-  extensions:
-    - 'NSWDPC\GridHelper\Extensions\ElementHasChildrenExtension'
