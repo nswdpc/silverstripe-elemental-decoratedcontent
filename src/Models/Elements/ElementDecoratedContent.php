@@ -13,7 +13,9 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\LabelField;
 use SilverStripe\Forms\OptionsetField;
+use SilverStripe\Forms\Tab;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\TagField\Tagfield;
@@ -103,7 +105,8 @@ class ElementDecoratedContent extends ElementContent
     public function getCmsFields()
     {
         $fields = parent::getCmsFields();
-        $fields->removeByName(['PublicDate','UseLastEditedDate','Tags','LinkTargetID']);
+        $fields->removeByName(['PublicDate','UseLastEditedDate','Tags','LinkTargetID', 'Provider']);
+        $fields->insertAfter('Main', Tab::create('Image', _t(__CLASS__ . '.IMAGE','Image')));
         $fields->addFieldsToTab(
             'Root.Image',
             [
@@ -127,12 +130,13 @@ class ElementDecoratedContent extends ElementContent
                     ]
                 )->setEmptyString('Choose an option')
                 ->setDescription(
-                    _t(__CLASS__ . '.IMAGE_ALIGNMENT_DESCRIOTION', 'Use of this option is dependent on the theme')
+                    _t(__CLASS__ . '.IMAGE_ALIGNMENT_DESCRIPTION', 'Use of this option is dependent on the theme')
                 )
             ]
         );
 
         // Video fields
+        $fields->insertAfter('Image', Tab::create('Video', _t(__CLASS__ . '.VIDEO','Video')));
         $fields->addFieldsToTab(
             'Root.Video',
             [
@@ -147,12 +151,17 @@ class ElementDecoratedContent extends ElementContent
                 TextField::create(
                     'Video',
                     _t(
-                        __CLASS__ . 'VideoID', 'Video ID'
+                        __CLASS__ . 'VIDEO_PROVIDER_ID', 'Provider\'s video identification code'
+                    )
+                )->setDescription(
+                    _t(
+                        __CLASS__ . 'VIDEO_PROVIDER_ID_DESCRIPTION', 'This is the id number or code for the video, eg \'123456\' or \'abcd1234\' displayed by the provider, usually found in their share widget'
                     )
                 )
             ]
         );
 
+        $fields->insertAfter('Video', Tab::create('Meta', _t(__CLASS__ . '.META','Meta')));
         $fields->addFieldsToTab(
             'Root.Meta',
             [
@@ -165,7 +174,7 @@ class ElementDecoratedContent extends ElementContent
                         'UseLastEditedDate',
                         _t(__CLASS__ . '.USE_LASTEDITED_DATE', 'Just use the last edited date of this record')
                     )
-                ),
+                )->setTitle( _t(__CLASS__ . '.DATE_OPTIONS', 'Date options') ),
 
                 Tagfield::create(
                     'Tags',
