@@ -81,6 +81,15 @@ class ElementDecoratedContent extends ElementContent
     ];
 
     /**
+     * Defines available video providers
+     * @var array
+     */
+    private static $video_providers = [
+        'youtube' => 'YouTube',
+        'vimeo' => 'Vimeo'
+    ];
+
+    /**
      * Get available taxonomy terms
      * @return DataList|null
      */
@@ -143,10 +152,7 @@ class ElementDecoratedContent extends ElementContent
                 OptionsetField::create(
                     'Provider',
                     _t(__CLASS__ . '.PROVIDER', 'Video provider'),
-                    [
-                        'youtube' => 'YouTube',
-                        'vimeo' => 'Vimeo'
-                    ]
+                    $this->config()->get('video_providers')
                 ),
                 TextField::create(
                     'Video',
