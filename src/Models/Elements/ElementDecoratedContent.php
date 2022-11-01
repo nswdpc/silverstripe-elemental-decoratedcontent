@@ -151,7 +151,7 @@ class ElementDecoratedContent extends ElementContent
     {
         parent::onBeforeWrite();
         if ($this->UseLastEditedDate == 1) {
-            $this->PublicDate = DBDatetime::now();
+            $this->PublicDate = DBDatetime::now()->Format( DBDateTime::ISO_DATETIME );
         }
     }
 
