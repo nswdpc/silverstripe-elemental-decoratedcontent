@@ -29,20 +29,45 @@ use SilverStripe\Taxonomy\TaxonomyTerm;
  */
 class ElementDecoratedContent extends ElementContent
 {
+
+    /**
+     * @inheritdoc
+     */
     private static $inline_editable = false;
 
+    /**
+     * @inheritdoc
+     */
     private static $singular_name = 'Decorated content';
 
+    /**
+     * @inheritdoc
+     */
     private static $plural_name = 'Decorated content';
 
+    /**
+     * @inheritdoc
+     */
     private static $table_name = 'ElementDecoratedContent';
 
+    /**
+     * @inheritdoc
+     */
     private static $icon = 'font-icon-block-banner';
 
+    /**
+     * @inheritdoc
+     */
     private static $title = 'Decorated content';
 
+    /**
+     * @inheritdoc
+     */
     private static $description = 'A content element with extra fields';
 
+    /**
+     * @inheritdoc
+     */
     private static $db = [
         'Subtitle' => 'Varchar(255)',
         'CallToAction' => 'Varchar(32)',
@@ -54,19 +79,31 @@ class ElementDecoratedContent extends ElementContent
         'Provider' => 'Varchar'
     ];
 
+    /**
+     * @inheritdoc
+     */
     private static $defaults = [
         'UseLastEditedDate' => 0
     ];
 
+    /**
+     * @inheritdoc
+     */
     private static $has_one = [
         'Image' => Image::class,
         'LinkTarget' => Link::class
     ];
 
+    /**
+     * @inheritdoc
+     */
     private static $many_many = [
         'Tags' => TaxonomyTerm::class
     ];
 
+    /**
+     * @inheritdoc
+     */
     private static $owns = [
         'Image',
         'LinkTarget'
@@ -98,11 +135,17 @@ class ElementDecoratedContent extends ElementContent
         return $list;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'Decorated Content');
     }
 
+    /**
+     * @inheritdoc
+     */
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();
@@ -111,6 +154,9 @@ class ElementDecoratedContent extends ElementContent
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getCmsFields()
     {
         $fields = parent::getCmsFields();
