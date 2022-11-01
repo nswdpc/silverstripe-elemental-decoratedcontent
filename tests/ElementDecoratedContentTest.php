@@ -14,11 +14,10 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  */
 class ElementDecoratedContentTest extends SapphireTest
 {
-
     protected $usesDatabase = true;
 
-    public function testPublicDateUseLastEdited() {
-
+    public function testPublicDateUseLastEdited()
+    {
         $now = '2022-12-31 14:25:34';
         DBDatetime::set_mock_now($now);
 
@@ -33,8 +32,8 @@ class ElementDecoratedContentTest extends SapphireTest
         DBDatetime::clear_mock_now();
     }
 
-    public function testPublicDateNotUseLastEdited() {
-
+    public function testPublicDateNotUseLastEdited()
+    {
         $publicDate = '1922-12-31 14:25:34';
 
         $field = ElementDecoratedContent::create([
@@ -46,5 +45,4 @@ class ElementDecoratedContentTest extends SapphireTest
 
         $this->assertEquals($publicDate, $field->PublicDate, "Public date should be value set");
     }
-
 }

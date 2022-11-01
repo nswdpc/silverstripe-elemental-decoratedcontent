@@ -130,7 +130,8 @@ class ElementDecoratedContent extends ElementContent
      * Get available taxonomy terms
      * @return DataList|null
      */
-    protected function getTaxonomyTerms() {
+    protected function getTaxonomyTerms()
+    {
         $list = TaxonomyTerm::get()->sort('Name ASC');
         return $list;
     }
@@ -161,7 +162,7 @@ class ElementDecoratedContent extends ElementContent
     {
         $fields = parent::getCmsFields();
         $fields->removeByName(['PublicDate','UseLastEditedDate','Tags','LinkTargetID', 'Provider']);
-        $fields->insertAfter('Main', Tab::create('Image', _t(__CLASS__ . '.IMAGE','Image')));
+        $fields->insertAfter('Main', Tab::create('Image', _t(__CLASS__ . '.IMAGE', 'Image')));
         $fields->addFieldsToTab(
             'Root.Image',
             [
@@ -191,7 +192,7 @@ class ElementDecoratedContent extends ElementContent
         );
 
         // Video fields
-        $fields->insertAfter('Image', Tab::create('Video', _t(__CLASS__ . '.VIDEO','Video')));
+        $fields->insertAfter('Image', Tab::create('Video', _t(__CLASS__ . '.VIDEO', 'Video')));
         $fields->addFieldsToTab(
             'Root.Video',
             [
@@ -203,17 +204,19 @@ class ElementDecoratedContent extends ElementContent
                 TextField::create(
                     'Video',
                     _t(
-                        __CLASS__ . 'VIDEO_PROVIDER_ID', 'Provider\'s video identification code'
+                        __CLASS__ . 'VIDEO_PROVIDER_ID',
+                        'Provider\'s video identification code'
                     )
                 )->setDescription(
                     _t(
-                        __CLASS__ . 'VIDEO_PROVIDER_ID_DESCRIPTION', 'This is the id number or code for the video, eg \'123456\' or \'abcd1234\' displayed by the provider, usually found in their share widget'
+                        __CLASS__ . 'VIDEO_PROVIDER_ID_DESCRIPTION',
+                        'This is the id number or code for the video, eg \'123456\' or \'abcd1234\' displayed by the provider, usually found in their share widget'
                     )
                 )
             ]
         );
 
-        $fields->insertAfter('Video', Tab::create('Meta', _t(__CLASS__ . '.META','Meta')));
+        $fields->insertAfter('Video', Tab::create('Meta', _t(__CLASS__ . '.META', 'Meta')));
         $fields->addFieldsToTab(
             'Root.Meta',
             [
@@ -226,7 +229,7 @@ class ElementDecoratedContent extends ElementContent
                         'UseLastEditedDate',
                         _t(__CLASS__ . '.USE_LASTEDITED_DATE', 'Just use the last edited date of this record')
                     )
-                )->setTitle( _t(__CLASS__ . '.DATE_OPTIONS', 'Date options') ),
+                )->setTitle(_t(__CLASS__ . '.DATE_OPTIONS', 'Date options')),
 
                 Tagfield::create(
                     'Tags',
@@ -235,8 +238,8 @@ class ElementDecoratedContent extends ElementContent
                     $this->Tags(),
                     'Name' // TaxonomyTerm.Name
                 )->setShouldLazyLoad(true)
-	             ->setCanCreate(true)
-                 ->setSourceList( $this->getTaxonomyTerms() ),
+                 ->setCanCreate(true)
+                 ->setSourceList($this->getTaxonomyTerms()),
 
                 TextField::create(
                     'IconClass',
@@ -278,7 +281,8 @@ class ElementDecoratedContent extends ElementContent
     /**
      * Return the field used to handle linking
      */
-    protected function getLinkField() : LinkField {
+    protected function getLinkField() : LinkField
+    {
         $field = LinkField::create(
             'LinkTarget',
             _t(
@@ -287,7 +291,7 @@ class ElementDecoratedContent extends ElementContent
             ),
             $this
         )->setDescription(
-            _t(__CLASS__ . '.LINK_DESCRIPTION','Choose where this content item will link to')
+            _t(__CLASS__ . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
         );
         return $field;
     }
