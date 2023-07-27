@@ -25,7 +25,7 @@
     ],
     "require": {
         "dnadesign/silverstripe-elemental": "^5",
-        "gorriecoe/silverstripe-linkfield": "*",
+        "gorriecoe/silverstripe-linkfield": "^1.1",
         "silverstripe/taxonomy": "^3",
         "silverstripe/tagfield" : "^3"
     },
