@@ -295,4 +295,20 @@ class ElementDecoratedContent extends ElementContent
         );
         return $field;
     }
+
+    /**
+     * Compatability method to align with other content elements
+     */
+    public function ContentLink() : ?Link
+    {
+        return $this->LinkTarget();
+    }
+
+    /**
+     * Compatability method to align with other content elements
+     */
+    public function ContentImage() : ?Image
+    {
+        return $this->Image();
+    }
 }
