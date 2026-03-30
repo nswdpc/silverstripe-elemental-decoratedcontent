@@ -16,7 +16,7 @@ class ElementDecoratedContentTest extends SapphireTest
 {
     protected $usesDatabase = true;
 
-    public function testPublicDateUseLastEdited()
+    public function testPublicDateUseLastEdited(): void
     {
         $now = '2022-12-31 14:25:34';
         DBDatetime::set_mock_now($now);
@@ -32,7 +32,7 @@ class ElementDecoratedContentTest extends SapphireTest
         DBDatetime::clear_mock_now();
     }
 
-    public function testPublicDateNotUseLastEdited()
+    public function testPublicDateNotUseLastEdited(): void
     {
         $publicDate = '1922-12-31 14:25:34';
 
