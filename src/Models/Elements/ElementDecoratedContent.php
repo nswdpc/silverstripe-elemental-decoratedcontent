@@ -18,7 +18,7 @@ use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\Tab;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
-use SilverStripe\TagField\Tagfield;
+use SilverStripe\TagField\TagField;
 use SilverStripe\Taxonomy\TaxonomyTerm;
 
 /**
