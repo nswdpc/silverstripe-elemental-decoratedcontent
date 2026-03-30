@@ -2,8 +2,6 @@
 
 namespace NSWDPC\Elemental\Models\DecoratedContent\Tests;
 
-use gorriecoe\Link\Models\Link;
-use gorriecoe\LinkField\LinkField;
 use NSWDPC\Elemental\Models\DecoratedContent\ElementDecoratedContent;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ORM\FieldType\DBDatetime;

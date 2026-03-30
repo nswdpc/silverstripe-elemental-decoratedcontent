@@ -8,15 +8,12 @@ use gorriecoe\LinkField\LinkField;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Forms\DatetimeField;
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\CompositeField;
-use SilverStripe\Forms\LabelField;
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\Tab;
-use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Taxonomy\TaxonomyTerm;
@@ -42,7 +39,6 @@ use SilverStripe\Taxonomy\TaxonomyTerm;
  */
 class ElementDecoratedContent extends ElementContent
 {
-
     /**
      * @inheritdoc
      */
@@ -162,7 +158,7 @@ class ElementDecoratedContent extends ElementContent
     {
         parent::onBeforeWrite();
         if ($this->UseLastEditedDate == 1) {
-            $this->PublicDate = DBDatetime::now()->Format( DBDateTime::ISO_DATETIME );
+            $this->PublicDate = DBDatetime::now()->Format(DBDateTime::ISO_DATETIME);
         }
     }
 
@@ -293,7 +289,7 @@ class ElementDecoratedContent extends ElementContent
     /**
      * Return the field used to handle linking
      */
-    protected function getLinkField() : LinkField
+    protected function getLinkField(): LinkField
     {
         return LinkField::create(
             'LinkTarget',
@@ -310,7 +306,7 @@ class ElementDecoratedContent extends ElementContent
     /**
      * Compatability method to align with other content elements
      */
-    public function ContentLink() : ?Link
+    public function ContentLink(): ?Link
     {
         return $this->LinkTarget();
     }
@@ -318,7 +314,7 @@ class ElementDecoratedContent extends ElementContent
     /**
      * Compatability method to align with other content elements
      */
-    public function ContentImage() : ?Image
+    public function ContentImage(): ?Image
     {
         return $this->Image();
     }
