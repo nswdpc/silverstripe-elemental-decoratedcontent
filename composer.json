@@ -25,7 +25,8 @@
         "dnadesign/silverstripe-elemental": "^5",
         "gorriecoe/silverstripe-linkfield": "^1.1",
         "silverstripe/taxonomy": "^3",
-        "silverstripe/tagfield" : "^3"
+        "silverstripe/tagfield" : "^3",
+        "silverstripe/asset-admin": "^2.4"
     },
     "require-dev": {
         "cambis/silverstripe-rector": "^2",
