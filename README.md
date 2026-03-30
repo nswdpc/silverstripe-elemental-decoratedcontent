@@ -1,10 +1,12 @@
-# Decorated content element for Silverstripe
+# Decorated content block for Silverstripe
 
-This module extends the content element to provide some decorations for the  default `ElementContent` element.
+This module extends the content element to provide some decorations for the  default `ElementContent` content block.
 
 It provides:
 
-* an image
+* an image + alignment option
+* a video (YouTube / Vimeo) field
+* a subtitle
 * a link (via gorriecoe/linkfield)
 * a call to action text field
 * a date (different to created/last edited)
@@ -12,20 +14,18 @@ It provides:
 
 (all optional)
 
+Implementation of these features in a template can and should be done at the project level.
+
 ## Requirements
 
-See [composer.json](./composer.json) for details. In brief:
-
-* dnadesign/silverstripe-elemental
-* gorriecoe/silverstripe-linkfield
-* silverstripe/taxonomy
-* silverstripe/tagfield
+See [composer.json](./composer.json) for details.
 
 ## Installation
 
-```
+```sh
 composer require nswdpc/silverstripe-element-decoratedcontent
 ```
+Add the element to the list of `allowed_elements`.
 
 ## Usage
 
@@ -43,11 +43,15 @@ None!
 
 ## Maintainers
 
-+ [dpcdigital@NSWDPC:~$](https://dpc.nsw.gov.au)
++ PD Web Team
 
 ## Bugtracker
 
 Please add issues to the Github issue tracker
+
+## Security
+
+If you have found a security issue with this module, please email digital[@]dpc.nsw.gov.au in the first instance, detailing your findings.
 
 ## Development and contribution
 
