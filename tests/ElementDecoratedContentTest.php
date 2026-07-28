@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NSWDPC\Elemental\Models\DecoratedContent\Tests;
 
 use NSWDPC\Elemental\Models\DecoratedContent\ElementDecoratedContent;

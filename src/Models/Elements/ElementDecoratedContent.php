@@ -72,7 +72,7 @@ class ElementDecoratedContent extends ElementContent
     /**
      * @inheritdoc
      */
-    private static string $description = 'A content element with extra fields';
+    private static string $class_description = 'A content element with extra fields';
 
     /**
      * @inheritdoc
