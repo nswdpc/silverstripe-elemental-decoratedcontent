@@ -5,6 +5,8 @@ namespace NSWDPC\Elemental\Models\DecoratedContent;
 use DNADesign\Elemental\Models\ElementContent;
 use gorriecoe\Link\Models\Link;
 use gorriecoe\LinkField\LinkField;
+use SilverStripe\LinkField\Models\Link as CoreLink;
+use SilverStripe\LinkField\Form\LinkField as CoreLinkField;
 use SilverStripe\Assets\Image;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Forms\DatetimeField;
@@ -35,7 +37,9 @@ use SilverStripe\Taxonomy\TaxonomyTerm;
  * @property int $LinkTargetID
  * @method \SilverStripe\Assets\Image Image()
  * @method \gorriecoe\Link\Models\Link LinkTarget()
+ * @method \SilverStripe\LinkField\Models\Link CoreLinkTarget()
  * @method \SilverStripe\ORM\ManyManyList<\SilverStripe\Taxonomy\TaxonomyTerm> Tags()
+ * @property int $CoreLinkTargetID
  */
 class ElementDecoratedContent extends ElementContent
 {
@@ -100,7 +104,8 @@ class ElementDecoratedContent extends ElementContent
      */
     private static array $has_one = [
         'Image' => Image::class,
-        'LinkTarget' => Link::class
+        'LinkTarget' => Link::class,
+        'CoreLinkTarget' => CoreLink::class
     ];
 
     /**
@@ -115,7 +120,16 @@ class ElementDecoratedContent extends ElementContent
      */
     private static array $owns = [
         'Image',
-        'LinkTarget'
+        'LinkTarget',
+        'CoreLinkTarget'
+    ];
+
+    private static array $cascade_deletes = [
+        'CoreLinkTarget'
+    ];
+
+    private static array $cascade_duplicates = [
+        'CoreLinkTarget'
     ];
 
     /**
@@ -278,6 +292,7 @@ class ElementDecoratedContent extends ElementContent
             )
         );
 
+        $fields->removeByName(['CoreLinkTarget', 'LinkTarget', 'LinkTargetID']);
         $fields->insertAfter(
             'CallToAction',
             $this->getLinkField()
@@ -287,28 +302,52 @@ class ElementDecoratedContent extends ElementContent
     }
 
     /**
-     * Return the field used to handle linking
+     * Return the field used to render the link
+     * based on migration state
      */
-    protected function getLinkField(): LinkField
+    protected function getLinkField(): CoreLinkField|LinkField
     {
-        return LinkField::create(
-            'LinkTarget',
-            _t(
-                self::class . '.LINK',
-                'Link'
-            ),
-            $this
-        )->setDescription(
+        $link = $this->getDerivedLinkTarget();
+        if ($link instanceof CoreLink) {
+            return CoreLinkField::create('CoreLinkTarget', _t(self::class . 'LINK', 'Link'))->setDescription(
+                _t(self::class . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
+            );
+        }
+
+        return LinkField::create('LinkTarget', _t(self::class . 'LINK', 'Link'), $this)->setDescription(
             _t(self::class . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
         );
     }
 
     /**
+     * Template method
+     */
+    public function DerivedLinkTarget(): CoreLink|Link
+    {
+        return $this->getDerivedLinkTarget();
+    }
+
+    /**
+     * Returns the relevant link based on migration status
+     */
+    public function getDerivedLinkTarget(): CoreLink|Link
+    {
+        $coreLink = $this->CoreLinkTarget();
+        /** @var Link $legacyLink */
+        $legacyLink = $this->getComponent('LinkTarget');
+        if ($coreLink->isInDB() || !$legacyLink->isInDB()) {
+            return $coreLink;
+        }
+
+        return $legacyLink;
+    }
+
+    /**
      * Compatability method to align with other content elements
      */
-    public function ContentLink(): ?Link
+    public function ContentLink(): CoreLink|Link
     {
-        return $this->LinkTarget();
+        return $this->DerivedLinkTarget();
     }
 
     /**
