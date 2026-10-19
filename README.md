@@ -20,7 +20,7 @@ Implementation of these features in a template can and should be done at the pro
 
 This version includes [staged migration of links](https://github.com/nswdpc/silverstripe-linkfield/blob/feat-link-migrator-staged/docs/en/migration.md) to the core Silverstripe Link model.
 
-1. *Important*: Update all calls to `$TargetLink`/`getTargetLink()`/`TargetLink()` in your project  to `$DerivedTargetLink`/`getDerivedTargetLink()`/`DerivedTargetLink()`
+1. *Important*: Update all calls to `$LinkTarget`/`getLinkTarget()`/`LinkTarget()` in your project  to `$DerivedLinkTarget`/`getDerivedLinkTarget()`/`DerivedLinkTarget()`
 2. Once the above change is available on your site, in the "Link migration" admin section any existing links will show with a  "Migrate" button
 3. Hit the "Migrate" button
 4. Records will migrate to the core Silverstripe Link model and the element interface will display the core Silverstripe link field once the element is republished.
