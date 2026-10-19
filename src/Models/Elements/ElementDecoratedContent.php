@@ -37,8 +37,9 @@ use SilverStripe\Taxonomy\TaxonomyTerm;
  * @property int $LinkTargetID
  * @method \SilverStripe\Assets\Image Image()
  * @method \gorriecoe\Link\Models\Link LinkTarget()
- * @method \SilverStripe\LinkField\Models\Link CoreLinkTarget()
+ * @method mixed CoreLinkTarget()
  * @method \SilverStripe\ORM\ManyManyList<\SilverStripe\Taxonomy\TaxonomyTerm> Tags()
+ * @property int $CoreLinkTargetID
  */
 class ElementDecoratedContent extends ElementContent
 {
