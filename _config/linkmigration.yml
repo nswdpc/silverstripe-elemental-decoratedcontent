@@ -5,5 +5,5 @@ Only:
 ---
 gorriecoe\LinkField\Migration\LinkMigrator:
   relation_map:
-    NSWDPC\Elemental\Models\LinksBlock\ElementalLinks:
+    NSWDPC\Elemental\Models\DecoratedContent\ElementDecoratedContent:
       LinkTarget: CoreLinkTarget
