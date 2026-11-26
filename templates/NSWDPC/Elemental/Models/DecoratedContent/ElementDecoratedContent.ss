@@ -1,5 +1,5 @@
 <div class="{$ElementStyles}">
-    <% if $LinkTarget %><a href="{$LinkTarget.LinkURL}" title="{$Title.XML}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>><% end_if %>
+    <% if $DerivedLinkTarget %><% with $DerivedLinkTarget %><a href="{$LinkURL}" title="{$Title.XML}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>><% end_with %><% end_if %>
     <% if $Tags %>
     <div class="tags">
         <% loop $Tags %>
@@ -22,7 +22,7 @@
             <h3 class="content-element__subtitle">{$Subtitle.XML}</h3>
         <% end_if %>
         <% if $HTML %>
-            $HTML
+            {$HTML}
         <% end_if %>
     </div>
     <% if $Image %>
@@ -30,5 +30,5 @@
             {$Image.ScaleWidth(960)}
         </div>
     <% end_if %>
-    <% if $LinkTarget %></a><% end_if %>
+    <% if $DerivedLinkTarget %></a><% end_if %>
 </div>

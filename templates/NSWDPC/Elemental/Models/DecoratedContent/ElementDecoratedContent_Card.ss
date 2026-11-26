@@ -16,10 +16,10 @@
             {$Image.Fill(420,320)}
         </div>
     <% end_if %>
-    <% if $Link %>
+    <% if $DerivedLinkTarget %>
         <div class="link">
-        <% with $Link %>
-            <p><a href="$LinkURL">$Title.XML</a></p>
+        <% with $DerivedLinkTarget %>
+            <p><a href="{$LinkURL}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>>{$Title.XML}</a></p>
         <% end_with %>
         </div>
     <% end_if %>
