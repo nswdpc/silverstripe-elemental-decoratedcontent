@@ -1,5 +1,5 @@
 <div class="{$ElementStyles}">
-    <% if $DerivedLinkTarget %><% with $DerivedLinkTarget %><a href="{$LinkURL}" title="{$Title.XML}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>><% end_with %><% end_if %>
+    <% if $DerivedLinkTarget %><% with $DerivedLinkTarget %><a href="{$URL}" title="{$Title.XML}" rel="noopener noreferrer"<% if $OpenInNew %> target="_blank"<% end_if %>><% end_with %><% end_if %>
     <% if $Tags %>
     <div class="tags">
         <% loop $Tags %>

@@ -3,8 +3,6 @@
 namespace NSWDPC\Elemental\Models\DecoratedContent;
 
 use DNADesign\Elemental\Models\ElementContent;
-use gorriecoe\Link\Models\Link;
-use gorriecoe\LinkField\LinkField;
 use SilverStripe\LinkField\Models\Link as CoreLink;
 use SilverStripe\LinkField\Form\LinkField as CoreLinkField;
 use SilverStripe\Assets\Image;
@@ -34,9 +32,7 @@ use SilverStripe\Taxonomy\TaxonomyTerm;
  * @property ?string $Video
  * @property ?string $Provider
  * @property int $ImageID
- * @property int $LinkTargetID
  * @method \SilverStripe\Assets\Image Image()
- * @method \gorriecoe\Link\Models\Link LinkTarget()
  * @method \SilverStripe\LinkField\Models\Link CoreLinkTarget()
  * @method \SilverStripe\ORM\ManyManyList<\SilverStripe\Taxonomy\TaxonomyTerm> Tags()
  * @property int $CoreLinkTargetID
@@ -104,7 +100,6 @@ class ElementDecoratedContent extends ElementContent
      */
     private static array $has_one = [
         'Image' => Image::class,
-        'LinkTarget' => Link::class,
         'CoreLinkTarget' => CoreLink::class
     ];
 
@@ -120,7 +115,6 @@ class ElementDecoratedContent extends ElementContent
      */
     private static array $owns = [
         'Image',
-        'LinkTarget',
         'CoreLinkTarget'
     ];
 
@@ -183,7 +177,7 @@ class ElementDecoratedContent extends ElementContent
     public function getCmsFields()
     {
         $fields = parent::getCmsFields();
-        $fields->removeByName(['PublicDate','UseLastEditedDate','Tags','LinkTargetID', 'Provider']);
+        $fields->removeByName(['PublicDate','UseLastEditedDate','Tags', 'Provider']);
         $fields->insertAfter('Main', Tab::create('Image', _t(self::class . '.IMAGE', 'Image')));
         $fields->addFieldsToTab(
             'Root.Image',
@@ -292,7 +286,7 @@ class ElementDecoratedContent extends ElementContent
             )
         );
 
-        $fields->removeByName(['CoreLinkTarget', 'LinkTarget', 'LinkTargetID']);
+        $fields->removeByName(['CoreLinkTarget']);
         $fields->insertAfter(
             'CallToAction',
             $this->getLinkField()
@@ -305,24 +299,18 @@ class ElementDecoratedContent extends ElementContent
      * Return the field used to render the link
      * based on migration state
      */
-    protected function getLinkField(): CoreLinkField|LinkField
+    protected function getLinkField(): CoreLinkField
     {
-        $link = $this->getDerivedLinkTarget();
-        if ($link instanceof CoreLink) {
-            return CoreLinkField::create('CoreLinkTarget', _t(self::class . 'LINK', 'Link'))->setDescription(
+        return CoreLinkField::create('CoreLinkTarget', _t(self::class . 'LINK', 'Link'))
+            ->setDescription(
                 _t(self::class . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
-            );
-        }
-
-        return LinkField::create('LinkTarget', _t(self::class . 'LINK', 'Link'), $this)->setDescription(
-            _t(self::class . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
         );
     }
 
     /**
      * Template method
      */
-    public function DerivedLinkTarget(): CoreLink|Link
+    public function DerivedLinkTarget(): ?CoreLink
     {
         return $this->getDerivedLinkTarget();
     }
@@ -330,24 +318,25 @@ class ElementDecoratedContent extends ElementContent
     /**
      * Returns the relevant link based on migration status
      */
-    public function getDerivedLinkTarget(): CoreLink|Link
+    public function getDerivedLinkTarget(): ?CoreLink
     {
-        $coreLink = $this->CoreLinkTarget();
-        /** @var Link $legacyLink */
-        $legacyLink = $this->getComponent('LinkTarget');
-        if ($coreLink->isInDB() || !$legacyLink->isInDB()) {
-            return $coreLink;
-        }
+        return $this->CoreLinkTarget();
+    }
 
-        return $legacyLink;
+    /**
+     * BC method
+     */
+    public function LinkTarget(): ?CoreLink
+    {
+        return $this->getDerivedLinkTarget();
     }
 
     /**
      * Compatability method to align with other content elements
      */
-    public function ContentLink(): CoreLink|Link
+    public function ContentLink(): ?CoreLink
     {
-        return $this->DerivedLinkTarget();
+        return $this->getDerivedLinkTarget();
     }
 
     /**

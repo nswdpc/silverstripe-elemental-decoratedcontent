@@ -19,7 +19,7 @@
     <% if $DerivedLinkTarget %>
         <div class="link">
         <% with $DerivedLinkTarget %>
-            <p><a href="{$LinkURL}"<% if $OpenInNewWindow %> target="_blank"<% end_if %>>{$Title.XML}</a></p>
+            <p><a href="{$URL}" rel="noopener noreferrer"<% if $OpenInNew %> target="_blank"<% end_if %>>{$Title.XML}</a></p>
         <% end_with %>
         </div>
     <% end_if %>
