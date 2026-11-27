@@ -304,7 +304,7 @@ class ElementDecoratedContent extends ElementContent
         return CoreLinkField::create('CoreLinkTarget', _t(self::class . 'LINK', 'Link'))
             ->setDescription(
                 _t(self::class . '.LINK_DESCRIPTION', 'Choose where this content item will link to')
-        );
+            );
     }
 
     /**
